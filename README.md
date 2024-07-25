@@ -22,6 +22,7 @@ Criada pela escola 42 para que os seus alunos possam aprender sobre computação
   ```
 
   ## Código para abrir a uma Janela e colocar um texto simples
+  Com a biblioteca minilibX é possível colocar abrir uma tela semelhando ao do terminal ou qualquer outros programa desktop e colocar texto de uma forma muito simples, exemplo:
 
   ```c
 #include "minilibx-linux/mlx.h"
@@ -38,10 +39,10 @@ int     main()
         void    *mlx_window;
         
         
-        mlx_connection = mlx_init();
-        mlx_window = mlx_new_window(mlx_connection, WIDTH, HEIGHT, "Tema do projecto");
+        mlx_connection = mlx_init(); // inicializando a biblioteca
+        mlx_window = mlx_new_window(mlx_connection, WIDTH, HEIGHT, "Tema do projecto"); // criando uma janela
         
-        mlx_string_put(mlx_connection, mlx_window, 200, 250, 0xffffff, "Sejam bem vindos");
-        mlx_loop(mlx_connection);
+        mlx_string_put(mlx_connection, mlx_window, 200, 250, 0xffffff, "Sejam bem vindos"); // colocando um texto na tela
+        mlx_loop(mlx_connection); // criando um loop para que a tela fique aberta até receber uma ordem de fechamento
 }
   ```
