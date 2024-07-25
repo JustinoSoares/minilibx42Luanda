@@ -46,3 +46,53 @@ int     main()
         mlx_loop(mlx_connection); // criando um loop para que a tela fique aberta até receber uma ordem de fechamento
 }
   ```
+## Agora vamos lidar com eventos de teclado e de mouse
+Vamos fazer o mesmo que fizemos no código passado mas aumentando algumas funcionalidade, que iram depender de eventos
+nesse caso quando o user clicar em qualquer tecla ele vai apresentar o seu valor ascii no terminal *e caso ele click na tecla ESC do teclado ele vai fechar a tela* , e se ele clicar na tela ele deverá apresentar as suas cordenadas exatas
+
+```c
+
+#include "minilibx-linux/mlx.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct t_data
+{
+        void    *mlx;
+        void    *window;
+}       t_data;
+
+int     key_hook(int keycode, t_data *data)
+{
+        printf("techado precionado: %d\n", keycode);
+        
+        if (keycode == 65307) // ESC
+        {
+                mlx_destroy_window(data->mlx, data->window); // Funcao nativa da biblioteca para fechar o tela
+                exit(0);
+        }
+        return (0);
+}
+
+int     mouse_hook(int  button, int x, int y, t_data *data)
+{
+        printf("X: %d \t Y: %d..\n", x, y);
+        return (0);
+}
+
+int     main()
+{
+        t_data  data;
+        
+        data.mlx = mlx_init();
+        data.window = mlx_new_window(data.mlx, 800, 500, "Fractal");
+        
+        mlx_key_hook(data.window, key_hook, &data); // Chama a funcao key_hook quando o user digitar um teclado 
+        mlx_mouse_hook(data.window, mouse_hook, &data); // Chama a funcao mouse_hook quando o usuário clicar na tela
+        mlx_loop(data.mlx);
+}
+
+```
+
+<strong>OBS</strong>: isso é apenas um exemplo de uso você como programador tem a liberdade de ajustar o teu projecto segundo a tua necessídade, por exemplo se por um acaso você decide que agora que quando o usuário precionar a tecla delete fecha a tela e não mais a ESC , basta saber  o valor do delete em ascii, você é livre
+
